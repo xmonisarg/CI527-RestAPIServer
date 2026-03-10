@@ -1,59 +1,67 @@
 
 window.addEventListener("load", async function(){
 
-    
     const target = document.querySelector('#result');
+
     document.querySelector('form').addEventListener('submit', async function(e){
     e.preventDefault();
 
+
+    // fetches results from the URL to show in the results container 
     const results = document.querySelector('#results-container');
     const url = 'https://api.vam.ac.uk/v2/objects/search?q=';
 
     const searchterm = document.querySelector('#input-search').value.trim();
     const searchquery = url + encodeURIComponent(searchterm);
 
-    const response = await fetch(searchquery);
-
-        // clears results first
+        // Clears results first while it fetches the new information from the query
         results.innerHTML = '';
         target.textContent = `Loading`;
 
           try {
             const response = await fetch(searchquery);
-            const data = await response.json(url);
+            const data = await response.json();
    
     
     for (const item of data.records) {
 
+    
+// fetches the system number to get all of the information
+    const detailURL = 'https://api.vam.ac.uk/v2/object/' + item.systemNumber;
+    const detailRes = await fetch(detailURL);
+    const detailData = await detailRes.json();
+
     const imageUrl = item._images._primary_thumbnail;
     const titleText = item._primaryTitle;
-    const descriptionText = item._briefDescription;
+    const descriptionText = detailData.record.physicalDescription;
     const dateText = item._primaryDate;
-    const makerText = item._primaryMaker;
+    const makerText = item._primaryMaker.name;
 
     const img = document.createElement('img');
     img.setAttribute('src', imageUrl);
     img.setAttribute('alt', titleText);
 
+    // If an item does not have an image it will display a no image holder
     img.addEventListener('error', function(e) {
+      img.setAttribute('src','https://placehold.co/100x100?text=No+Image');
     
   });
+// Creating all the elements to show all the information needed
+  const itemtitle = document.createElement('h3');
+  itemtitle.textContent = titleText;
 
-  const title = document.createElement('h2');
-  title.TextContent = titleText;
+  const itemmaker = document.createElement('p');
+  itemmaker.textContent = makerText;
 
-  const maker = document.createElement('p');
-  maker.textContent = makerText;
+  const itemdate = document.createElement('p');
+  itemdate.textContent = dateText;
 
-  const date = document.createElement('p');
-  date.textContent = dateText;
-
-  const description = document.createElement('p');
-  description.textContent = descriptionText;
+  const itemdesc = document.createElement('p');
+  itemdesc.textContent = descriptionText;
 
 
   const wrapper = document.createElement('div');
-  wrapper.append(img, title, maker, data, description);
+  wrapper.append(img, itemtitle, itemmaker, itemdate, itemdesc);
   results.append(wrapper);
 
       

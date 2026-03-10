@@ -4,21 +4,15 @@ color: #00879f;
 background-color:#c6f7ff;
 }
 
-.logo {
-    display: block;
-  margin: auto;
-}
-
  fieldset {
 margin: 3em;
 padding: 2em;
 display: center;
 } 
 
-/*input {
-
+.logo {
   display: block;
-  margin: auto;
+  margin: 0 auto;
 }
 
 /* input, textarea {
@@ -34,3 +28,4 @@ height: 10em;
 .maintitle {
     text-align: center;
 }
+
