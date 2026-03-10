@@ -1,0 +1,36 @@
+body {
+font-family: sans-serif;
+color: #00879f;
+background-color:#c6f7ff;
+}
+
+.logo {
+    display: block;
+  margin: auto;
+}
+
+ fieldset {
+margin: 3em;
+padding: 2em;
+display: center;
+} 
+
+/*input {
+
+  display: block;
+  margin: auto;
+}
+
+/* input, textarea {
+display: block;
+margin-bottom: 1em;
+width: 100%;
+} */
+
+textarea {
+height: 10em;
+}
+
+.maintitle {
+    text-align: center;
+}
