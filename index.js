@@ -59,7 +59,7 @@ window.addEventListener("load", async function(){
   const itemdesc = document.createElement('p');
   itemdesc.textContent = descriptionText;
 
-
+  // displays the image, title, maker, date and descreiption in a div element
   const wrapper = document.createElement('div');
   wrapper.append(img, itemtitle, itemmaker, itemdate, itemdesc);
   results.append(wrapper);
